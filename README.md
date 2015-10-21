@@ -1,6 +1,15 @@
 # Redux-Books
 A Quick Bootstrap of Redux using for a Books List CRUD app
 
+## Getting Started
+
+```bash
+npm install
+npm start
+# Go to http://localhost:8080
+```
+
+
 ## Resources
 
 * [Redux](https://github.com/rackt/redux)
