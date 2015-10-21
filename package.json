@@ -1,0 +1,33 @@
+{
+  "name": "redux-books",
+  "version": "0.1.0",
+  "description": "Simple book app",
+  "main": "index.js",
+  "scripts": {
+    "start": "watchify -t babelify index.js --output bundle.js --extension=js & python -m SimpleHTTPServer 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jermspeaks/Redux-Books.git"
+  },
+  "keywords": [
+    "books"
+  ],
+  "author": "Jeremy Wong (jermspeaks@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jermspeaks/Redux-Books/issues"
+  },
+  "homepage": "https://github.com/jermspeaks/Redux-Books#readme",
+  "dependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-redux": "^4.0.0",
+    "redux": "^3.0.3"
+  },
+  "devDependencies": {
+    "babelify": "^6.4.0",
+    "browserify": "^11.2.0",
+    "watchify": "^3.4.0"
+  }
+}
