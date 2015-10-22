@@ -3,12 +3,13 @@ A Quick Bootstrap of Redux using for a Books List CRUD app
 
 ## Getting Started
 
+You will need [Node](https://nodejs.org/en/) installed on your machine before you can begin.
+
 ```bash
 npm install
 npm start
-# Go to http://localhost:8080
+open http://localhost:3000
 ```
-
 
 ## Resources
 
