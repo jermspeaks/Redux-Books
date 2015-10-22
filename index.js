@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider, connect } from 'react-redux';
+import { devTools, persistState } from 'redux-devtools';
+import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
 // Dumb React Component
 class BookInput extends Component {
@@ -122,14 +124,17 @@ const crashReporter = store => next => action => {
 }
 
 // Store:
-// let store = createStore(books);
-
-// applyMiddleware takes createStore() and returns
-// a function with a compatible API.
-let createStoreWithMiddleware = applyMiddleware(logger, crashReporter)(createStore);
-
 // Use it like you would use createStore()
-let store = createStoreWithMiddleware(reducers);
+const finalCreateStore = compose(
+  // Enables your middleware:
+  applyMiddleware(logger, crashReporter),
+  // Provides support for DevTools:
+  devTools(),
+  // Lets you write ?debug_session=<name> in address bar to persist debug sessions
+  persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+)(createStore);
+
+let store = finalCreateStore(reducers);
 
 // Map Redux state to component props
 // Which props do we want to inject, given the global state?
@@ -144,8 +149,13 @@ function select(state) {
 let Root = connect(select)(App);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Root />
-  </Provider>,
+  <div>
+    <Provider store={store}>
+      <Root />
+    </Provider>
+    <DebugPanel right top bottom >
+      <DevTools store={store} monitor={LogMonitor} />
+    </DebugPanel>
+  </div>,
   document.getElementById('root')
 );
