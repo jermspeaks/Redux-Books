@@ -25,7 +25,7 @@ var _redux = require('redux');
 
 var _reactRedux = require('react-redux');
 
-// React component
+// Dumb React Component
 
 var BookInput = (function (_Component) {
   _inherits(BookInput, _Component);
@@ -36,7 +36,8 @@ var BookInput = (function (_Component) {
     _get(Object.getPrototypeOf(BookInput.prototype), 'constructor', this).apply(this, arguments);
   }
 
-  // Actions:
+  // Expectation to render BookList method
+
   _createClass(BookInput, [{
     key: 'render',
     value: function render() {
@@ -75,6 +76,85 @@ var BookInput = (function (_Component) {
   return BookInput;
 })(_react.Component);
 
+BookInput.propTypes = {
+  onBookSubmit: _react.PropTypes.func.isRequired
+};
+
+// Dumb React Component
+
+var BookList = (function (_Component2) {
+  _inherits(BookList, _Component2);
+
+  function BookList() {
+    _classCallCheck(this, BookList);
+
+    _get(Object.getPrototypeOf(BookList.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  // Expectation to render BookList method
+
+  _createClass(BookList, [{
+    key: 'render',
+    value: function render() {
+      return _react2['default'].createElement(
+        'ul',
+        null,
+        this.props.library.map(function (book, index) {
+          return _react2['default'].createElement(
+            'li',
+            { key: index },
+            book.title
+          );
+        })
+      );
+    }
+  }]);
+
+  return BookList;
+})(_react.Component);
+
+BookList.propTypes = {
+  library: _react.PropTypes.arrayOf(_react.PropTypes.shape({
+    title: _react.PropTypes.string.isRequired
+  }).isRequired)
+};
+
+// Smart React Component
+
+var App = (function (_Component3) {
+  _inherits(App, _Component3);
+
+  function App() {
+    _classCallCheck(this, App);
+
+    _get(Object.getPrototypeOf(App.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  // Actions:
+  _createClass(App, [{
+    key: 'render',
+
+    // Map Redux actions to component props
+    value: function render() {
+      // Injected by connect() call:
+      var _props = this.props;
+      var dispatch = _props.dispatch;
+      var books = _props.books;
+
+      return _react2['default'].createElement(
+        'div',
+        null,
+        _react2['default'].createElement(BookInput, { onBookSubmit: function (book) {
+            return dispatch(addBook(book));
+          } }),
+        _react2['default'].createElement(BookList, { library: books })
+      );
+    }
+  }]);
+
+  return App;
+})(_react.Component);
+
 var ADD_BOOK = 'ADD_BOOK';
 
 // Action Creators:
@@ -96,32 +176,75 @@ function books(state, action) {
   }
 }
 
+var reducers = (0, _redux.combineReducers)({
+  books: books
+});
+
+// Middlewares
+/**
+ * Logs all actions and states after they are dispatched.
+ */
+var logger = function logger(store) {
+  return function (next) {
+    return function (action) {
+      console.group(action.type);
+      console.info('dispatching', action);
+      var result = next(action);
+      console.log('next state', store.getState());
+      console.groupEnd(action.type);
+      return result;
+    };
+  };
+};
+
+/**
+ * Sends crash reports as state is updated and listeners are notified.
+ */
+var crashReporter = function crashReporter(store) {
+  return function (next) {
+    return function (action) {
+      try {
+        return next(action);
+      } catch (err) {
+        console.error('Caught an exception!', err);
+        Raven.captureException(err, {
+          extra: {
+            action: action,
+            state: store.getState()
+          }
+        });
+        throw err;
+      }
+    };
+  };
+};
+
 // Store:
-var store = (0, _redux.createStore)(books);
+// let store = createStore(books);
+
+// applyMiddleware takes createStore() and returns
+// a function with a compatible API.
+var createStoreWithMiddleware = (0, _redux.applyMiddleware)(logger, crashReporter)(_redux.createStore);
+
+// Use it like you would use createStore()
+var store = createStoreWithMiddleware(reducers);
 
 // Map Redux state to component props
-function mapStateToProps(state) {
+// Which props do we want to inject, given the global state?
+// Note: use https://github.com/faassen/reselect for better performance.
+function select(state) {
   return {
     books: state.books
   };
 }
 
-// Map Redux actions to component props
-function mapDispatchToProps(dispatch) {
-  return {
-    onBookSubmit: function onBookSubmit(book) {
-      return dispatch(addBook(book));
-    }
-  };
-}
-
 // Connected Component:
-var App = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BookInput);
+var Root = (0, _reactRedux.connect)(select)(App);
 
 _reactDom2['default'].render(_react2['default'].createElement(
   _reactRedux.Provider,
   { store: store },
-  _react2['default'].createElement(App, null)
+  _react2['default'].createElement(Root, null)
 ), document.getElementById('root'));
 
 },{"react":167,"react-dom":32,"react-redux":35,"redux":169}],2:[function(require,module,exports){
