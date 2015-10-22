@@ -2,7 +2,7 @@
   "name": "redux-books",
   "version": "1.2.0",
   "description": "Simple book app",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node server.js"
   },

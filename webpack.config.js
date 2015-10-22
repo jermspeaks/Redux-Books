@@ -1,6 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var root = path.join(__dirname, 'src');
+
 module.exports = {
   devtool: 'eval',
   entry: [
@@ -9,7 +11,8 @@ module.exports = {
     './index'
   ],
   output: {
-    path: __dirname,
+    path: path.join(__dirname, 'build'),
+    publicPath: '/public/',
     filename: 'bundle.js'
   },
   plugins: [
