@@ -7,6 +7,8 @@ var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_ag
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
@@ -25,79 +27,96 @@ var _reactRedux = require('react-redux');
 
 // React component
 
-var Counter = (function (_React$Component) {
-  _inherits(Counter, _React$Component);
+var BookInput = (function (_Component) {
+  _inherits(BookInput, _Component);
 
-  function Counter() {
-    _classCallCheck(this, Counter);
+  function BookInput() {
+    _classCallCheck(this, BookInput);
 
-    _get(Object.getPrototypeOf(Counter.prototype), 'constructor', this).apply(this, arguments);
+    _get(Object.getPrototypeOf(BookInput.prototype), 'constructor', this).apply(this, arguments);
   }
 
-  // Action:
-  _createClass(Counter, [{
+  // Actions:
+  _createClass(BookInput, [{
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var value = _props.value;
-      var onIncreaseClick = _props.onIncreaseClick;
+      var _this = this;
+
+      var onBookSubmit = this.props.onBookSubmit;
 
       return _react2['default'].createElement(
         'div',
         null,
         _react2['default'].createElement(
-          'span',
-          null,
-          value
-        ),
-        _react2['default'].createElement(
-          'button',
-          { onClick: onIncreaseClick },
-          'Increase'
+          'form',
+          { onSubmit: function (e) {
+              return _this.handleSubmit(e);
+            } },
+          _react2['default'].createElement('input', { type: 'text', ref: 'book', placeholder: 'enter book' }),
+          _react2['default'].createElement(
+            'button',
+            { type: 'submit' },
+            'Add Book'
+          )
         )
       );
     }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var node = this.refs.book;
+      var text = node.value.trim();
+      this.props.onBookSubmit(text);
+      node.value = '';
+    }
   }]);
 
-  return Counter;
-})(_react2['default'].Component);
+  return BookInput;
+})(_react.Component);
 
-var increaseAction = { type: 'increase' };
+var ADD_BOOK = 'ADD_BOOK';
 
-// Reducer:
-function counter(state, action) {
-  if (state === undefined) state = { count: 0 };
+// Action Creators:
+function addBook(book) {
+  return { type: ADD_BOOK, book: book };
+}
 
-  var count = state.count;
+// Reducers:
+function books(state, action) {
+  if (state === undefined) state = [];
+
   switch (action.type) {
-    case 'increase':
-      return { count: count + 1 };
+    case ADD_BOOK:
+      return [].concat(_toConsumableArray(state), [{
+        title: action.book
+      }]);
     default:
       return state;
   }
 }
 
 // Store:
-var store = (0, _redux.createStore)(counter);
+var store = (0, _redux.createStore)(books);
 
 // Map Redux state to component props
 function mapStateToProps(state) {
   return {
-    value: state.count
+    books: state.books
   };
 }
 
 // Map Redux actions to component props
 function mapDispatchToProps(dispatch) {
   return {
-    onIncreaseClick: function onIncreaseClick() {
-      return dispatch(increaseAction);
+    onBookSubmit: function onBookSubmit(book) {
+      return dispatch(addBook(book));
     }
   };
 }
 
 // Connected Component:
-var App = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Counter);
+var App = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BookInput);
 
 _reactDom2['default'].render(_react2['default'].createElement(
   _reactRedux.Provider,

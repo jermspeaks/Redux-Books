@@ -1,49 +1,65 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
 
 // React component
-class Counter extends React.Component {
-  render(){
-    const { value, onIncreaseClick } = this.props;
+class BookInput extends Component {
+  render() {
+    const { onBookSubmit } = this.props;
     return (
       <div>
-        <span>{value}</span>
-        <button onClick={onIncreaseClick}>Increase</button>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+          <input type='text' ref='book' placeholder='enter book' />
+          <button type='submit'>Add Book</button>
+        </form>
       </div>
     );
   }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const node = this.refs.book;
+    const text = node.value.trim();
+    this.props.onBookSubmit(text);
+    node.value = '';
+  }
 }
 
-// Action:
-const increaseAction = {type: 'increase'};
+// Actions:
+const ADD_BOOK = 'ADD_BOOK';
 
-// Reducer:
-function counter(state={count: 0}, action) {
-  let count = state.count;
-  switch(action.type){
-    case 'increase':
-      return {count: count+1};
+// Action Creators:
+function addBook(book) {
+  return { type: ADD_BOOK, book };
+}
+
+// Reducers:
+function books(state=[], action) {
+  switch(action.type) {
+    case ADD_BOOK:
+      return [...state, {
+        title: action.book
+      }];
     default:
       return state;
   }
 }
 
 // Store:
-let store = createStore(counter);
+let store = createStore(books);
 
 // Map Redux state to component props
 function mapStateToProps(state)  {
   return {
-    value: state.count
+    books: state.books
   };
 }
 
 // Map Redux actions to component props
 function mapDispatchToProps(dispatch) {
   return {
-    onIncreaseClick: () => dispatch(increaseAction)
+    onBookSubmit: book => dispatch(addBook(book))
   };
 }
 
@@ -51,7 +67,7 @@ function mapDispatchToProps(dispatch) {
 let App = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Counter);
+)(BookInput);
 
 ReactDOM.render(
   <Provider store={store}>

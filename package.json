@@ -4,7 +4,7 @@
   "description": "Simple book app",
   "main": "index.js",
   "scripts": {
-    "start": "watchify -t babelify index.js --output bundle.js --extension=js & python -m SimpleHTTPServer 8080"
+    "start": "watchify --extension=js index.js -o bundle.js & python -m SimpleHTTPServer 8080"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,11 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jermspeaks/Redux-Books/issues"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
   },
   "homepage": "https://github.com/jermspeaks/Redux-Books#readme",
   "dependencies": {
