@@ -7,6 +7,7 @@ const testBook = {
   id: 0,
   title: 'To Kill A Mockingbird'
 };
+const oneBookState = [testBook];
 
 describe('books reducer', () => {
   it('should return the initial state', () => {
@@ -25,8 +26,6 @@ describe('books reducer', () => {
   });
 
   it('should delete a book from the book list', () => {
-    const oneBookState = [testBook];
-
     expect(
       reducer(oneBookState, {
         type: types.DELETE_BOOK,
