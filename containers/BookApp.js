@@ -13,8 +13,13 @@ class BookApp extends Component {
     const { books, actions } = this.props;
     return (
       <div>
-        <BookInput onBookSubmit={actions.addBook} />
-        <BookList library={books} />
+        <BookInput
+          onBookSubmit={actions.addBook}
+        />
+        <BookList
+          onBookDelete={actions.deleteBook}
+          library={books}
+        />
       </div>
     );
   }

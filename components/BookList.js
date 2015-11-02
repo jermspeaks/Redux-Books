@@ -5,6 +5,7 @@ export default class BookList extends Component {
 
  // Expectation to render BookList method
   static propTypes = {
+    onBookDelete: PropTypes.func.isRequired,
     library: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
     }).isRequired)
@@ -14,11 +15,23 @@ export default class BookList extends Component {
     super();
   }
 
+  handleDelete(e) {
+    e.preventDefault();
+
+  }
+
   render() {
+    const { library, onBookDelete } = this.props;
     return (
       <ul>
-        {this.props.library.map((book, index) =>
-          <li key={index}>{book.title}</li>
+        {library.map((book, index) =>
+          <li key={index}>
+            <span>{book.title}&nbsp;</span>
+            <button
+              className='destroy'
+              value='Delete'
+              onClick={() => { onBookDelete(book.id) }}></button>
+          </li>
         )}
       </ul>
     );

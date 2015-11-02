@@ -6,3 +6,10 @@ export function addBook(book) {
 		book
 	};
 }
+
+export function deleteBook(id) {
+	return {
+		type: types.DELETE_BOOK,
+		id
+	};
+}
