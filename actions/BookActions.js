@@ -7,6 +7,14 @@ export function addBook(book) {
 	};
 }
 
+export function editBook(book, id) {
+  return {
+    type: types.EDIT_BOOK,
+    book,
+    id
+  }
+}
+
 export function deleteBook(id) {
 	return {
 		type: types.DELETE_BOOK,

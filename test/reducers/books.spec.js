@@ -1,6 +1,6 @@
 import expect from 'expect';
-import reducer from '../../reducers/books'
-import * as types from '../../constants/ActionTypes'
+import reducer from '../../reducers/books';
+import * as types from '../../constants/ActionTypes';
 
 const initialState = [];
 const testBook = {
