@@ -6,10 +6,16 @@ export default function books(state = initialState, action) {
   switch(action.type) {
     case types.ADD_BOOK:
       return [...state, {
-        // TODO still feels like a code smell
-        id: action.book.id,
+        id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
         title: action.book.title
       }];
+    case types.EDIT_BOOK:
+      return state.map((book) =>
+        book.id === action.book.id ?
+          Object.assign({}, book, {
+            title: action.book.title
+          }) : book
+      );
     case types.DELETE_BOOK:
       return state.filter((book) => {
         return book.id !== action.id
