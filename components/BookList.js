@@ -1,7 +1,5 @@
-import React, {
-  Component,
-  PropTypes
-} from 'react';
+import React, { Component,PropTypes } from 'react';
+import BookItem from './BookItem';
 
 // Dumb React Component
 export default class BookList extends Component {
@@ -30,20 +28,15 @@ export default class BookList extends Component {
   }
 
   render() {
-    const {library, onBookDelete} = this.props;
+    const {library, onBookEdit, onBookDelete} = this.props;
     return (
       <ul>
         {library.map((book, index) => <li key={index}>
-          {/* TODO Replace this with "book" component */}
-          <span>{book.title}&nbsp;</span>
-          <button onClick={() => {
-            this.showEdit()
-          }}>
-            <span>Show Edit</span>
-          </button>
-          <button className='destroy' onClick={() => {
-            onBookDelete(book.id)
-          }}>Delete</button>
+          <BookItem
+            onBookEdit={this.props.onBookEdit}
+            onBookDelete={this.props.onBookDelete}
+            title={book.title}
+            id={index} />
         </li>)}
       </ul>
     );

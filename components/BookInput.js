@@ -7,12 +7,14 @@ export default class BookInput extends Component {
   static propTypes = {
     onBookSubmit: PropTypes.func.isRequired
   };
-  
+
   handleSubmit(e) {
     e.preventDefault();
     const node = this.refs.book;
     const text = node.value.trim();
-    this.props.onBookSubmit(text);
+    this.props.onBookSubmit({
+      title: text
+    });
     node.value = '';
   }
 

@@ -6,7 +6,7 @@ export default function books(state = initialState, action) {
   switch(action.type) {
     case types.ADD_BOOK:
       return [...state, {
-        id: action.book.id,
+        id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
         title: action.book.title
       }];
     case types.EDIT_BOOK:
