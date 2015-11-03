@@ -23,15 +23,10 @@ describe('book actions', () => {
 			id: 0,
 			title: 'Gone With The Wind'
 		};
-		const id = 0;
 
-		expect(editBook(book, id)).toEqual({
+		expect(editBook(book)).toEqual({
 			type: 'EDIT_BOOK',
-			book: {
-				id: 0,
-				title: 'Gone With The Wind'
-			},
-			id: 0
+			book: book
 		});
 	});
 
@@ -40,7 +35,7 @@ describe('book actions', () => {
 
 		expect(deleteBook(id)).toEqual({
 			type: 'DELETE_BOOK',
-			id: 0
+			id: id
 		});
 	});
 });

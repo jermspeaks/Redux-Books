@@ -34,8 +34,10 @@ describe('books reducer', () => {
     expect(
       reducer(oneBookState, {
         type: types.EDIT_BOOK,
-        id: newBook.id,
-        title: newBook.title
+        book: {
+          id: newBook.id,
+          title: newBook.title
+        }
       })
     ).toEqual([newBook]);
   })

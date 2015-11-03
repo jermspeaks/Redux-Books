@@ -15,13 +15,13 @@ export default class BookItem extends Component {
     super();
     this.state = {
       editing: false,
-      title: this.props.title || ''
     }
   }
 
   showEdit() {
     this.setState({
-      editing: true
+      editing: true,
+      title: this.props.title
     });
   }
 
@@ -30,9 +30,7 @@ export default class BookItem extends Component {
     const node = this.refs.item;
     const text = node.value.trim();
     this.props.onBookEdit({
-      book: {
-        title: text
-      },
+      title: text,
       id: this.props.id
     });
     this.setState({
@@ -41,7 +39,7 @@ export default class BookItem extends Component {
   }
 
   handleChange(e) {
-    this.setState({ text: e.target.value })
+    this.setState({ title: e.target.value })
   }
 
   render() {

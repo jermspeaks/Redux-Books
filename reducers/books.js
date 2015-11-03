@@ -11,9 +11,9 @@ export default function books(state = initialState, action) {
       }];
     case types.EDIT_BOOK:
       return state.map((book) =>
-        book.id === action.id ?
+        book.id === action.book.id ?
           Object.assign({}, book, {
-            title: action.title
+            title: action.book.title
           }) : book
       );
     case types.DELETE_BOOK:

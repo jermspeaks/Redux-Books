@@ -7,11 +7,10 @@ export function addBook(book) {
 	};
 }
 
-export function editBook(book, id) {
+export function editBook(book) {
   return {
     type: types.EDIT_BOOK,
-    book,
-    id
+    book
   }
 }
 

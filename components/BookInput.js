@@ -19,7 +19,6 @@ export default class BookInput extends Component {
   }
 
   render() {
-    const { onBookSubmit } = this.props;
     return (
       <div>
         <form onSubmit={(e) => this.handleSubmit(e)}>
