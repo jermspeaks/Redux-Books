@@ -1,6 +1,6 @@
 import expect from 'expect';
-import reducer from '../../reducers/books'
-import * as types from '../../constants/ActionTypes'
+import reducer from '../../reducers/books';
+import * as types from '../../constants/ActionTypes';
 
 const initialState = [];
 const testBook = {
@@ -24,6 +24,23 @@ describe('books reducer', () => {
       })
     ).toEqual([testBook]);
   });
+
+  it('should edit a book from the book list', () => {
+    const newBook = {
+      id: 0,
+      title: 'Little House on the Prairie'
+    }
+
+    expect(
+      reducer(oneBookState, {
+        type: types.EDIT_BOOK,
+        book: {
+          id: newBook.id,
+          title: newBook.title
+        }
+      })
+    ).toEqual([newBook]);
+  })
 
   it('should delete a book from the book list', () => {
     expect(

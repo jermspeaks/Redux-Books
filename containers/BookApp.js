@@ -17,6 +17,7 @@ class BookApp extends Component {
           onBookSubmit={actions.addBook}
         />
         <BookList
+          onBookEdit={actions.editBook}
           onBookDelete={actions.deleteBook}
           library={books}
         />
