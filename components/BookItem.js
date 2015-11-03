@@ -14,7 +14,7 @@ export default class BookItem extends Component {
   constructor() {
     super();
     this.state = {
-      editing: false,
+      editing: false
     }
   }
 
@@ -42,6 +42,16 @@ export default class BookItem extends Component {
     this.setState({ title: e.target.value })
   }
 
+  handleKeyDown(e) {
+    if (e.which === 13) {
+      this.handleBookEdit(e);
+    }
+  }
+
+  handleDoubleClick() {
+    this.showEdit();
+  }
+
   render() {
     const {title, onBookDelete} = this.props;
 
@@ -52,19 +62,20 @@ export default class BookItem extends Component {
           <input ref='item'
             value={this.state.title}
             editing={this.state.editing}
-            onChange={ (e) => this.handleChange(e) } />
+            onChange={ (e) => this.handleChange(e) }
+            onKeyDown={ (e) => this.handleKeyDown(e) } />
           <button onClick={(e) => { this.handleBookEdit(e) }}>Save</button>
         </div>
       );
     } else {
       element = (
         <div className="view">
-          <span>{title}&nbsp;</span>
+          <span onDoubleClick={ () => this.handleDoubleClick() }>{title} </span>
           <button onClick={() => { this.showEdit() }}>
             <span>Show Edit</span>
           </button>
           <button className='destroy' onClick={() => {
-            onBookDelete(book.id)
+            onBookDelete(this.props.id)
           }}>Delete</button>
         </div>
       )

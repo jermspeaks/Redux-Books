@@ -36,7 +36,7 @@ export default class BookList extends Component {
             onBookEdit={this.props.onBookEdit}
             onBookDelete={this.props.onBookDelete}
             title={book.title}
-            id={index} />
+            id={book.id} />
         </li>)}
       </ul>
     );
