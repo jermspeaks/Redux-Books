@@ -14,7 +14,7 @@ class BookApp extends Component {
     return (
       <div>
         <BookInput
-          onBookSubmit={actions.addBook}
+          onBookSubmit={actions.fetchBooks}
         />
         <BookList
           onBookEdit={actions.editBook}

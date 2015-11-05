@@ -1,6 +1,4 @@
 import * as types from '../constants/ActionTypes';
-import fetch from 'isomorphic-fetch';
-import $ from 'jQuery';
 
 const GOODREADS_API_KEY = 'Z0CC2Sg1ZL5I9vHbHrdBfg';
 
@@ -31,20 +29,21 @@ export function requestBooks(query) {
   }
 }
 
-export function receieveBooks(json) {
+export function receieveBooks(query, json) {
+  console.log(query);
+  console.log(json);
   return {
-    type: types.RECEIEVE_BOOKS,
-    books: json.data,
+    type: types.RECEIVE_BOOKS,
+    books: json.items,
     receivedAt: Date.now()
   }
 }
 
 export function fetchBooks(query) {
-  const encodedQuery = encodeURIComponent(query);
   return (dispatch) => {
     dispatch(requestBooks(query))
-    return fetch(`https://www.goodreads.com/search/index.xml?key=${GOODREADS_API_KEY}&q=${encodedQuery}`)
-      .then((response) => $.parseXML(response))
-      .then((json) => dispatch(receieveBooks(query, json)))
+    return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
+      .then(response => response.json())
+      .then((json) => dispatch(receieveBooks(query, json)));
   }
 }
