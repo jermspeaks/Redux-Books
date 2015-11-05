@@ -1,24 +1,44 @@
 import * as types from '../constants/ActionTypes';
 
-const initialState = [];
+const initialState = {
+  requestingBooks: false,
+  bookResults: [],
+  library: []
+};
 
 export default function books(state = initialState, action) {
+  const oldLibrary = state.library;
   switch(action.type) {
     case types.ADD_BOOK:
-      return [...state, {
-        id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
-        title: action.book.title
-      }];
+      return Object.assign({}, state, {
+        library: [{
+          title: action.book.title,
+          id: action.book.id
+        }, ...oldLibrary]
+      });
+    case types.REQUEST_BOOKS:
+      return Object.assign({}, state, {
+        requestingBooks: true
+      });
+    case types.RECEIVE_BOOKS:
+      return Object.assign({}, state, {
+        requestingBooks: false,
+        bookResults: action.books
+      });
     case types.EDIT_BOOK:
-      return state.map((book) =>
-        book.id === action.book.id ?
-          Object.assign({}, book, {
-            title: action.book.title
-          }) : book
-      );
+      return Object.assign({}, state, {
+        library: oldLibrary.map((book) =>
+          book.id === action.book.id ?
+            Object.assign({}, book, {
+              title: action.book.title
+            }) : book
+        )
+      });
     case types.DELETE_BOOK:
-      return state.filter((book) => {
-        return book.id !== action.id
+      return Object.assign({}, state, {
+        library: oldLibrary.filter((book) => {
+          return book.id !== action.id;
+        })
       });
     default:
       return state;
