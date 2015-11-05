@@ -1,7 +1,5 @@
 import * as types from '../constants/ActionTypes';
 
-const GOODREADS_API_KEY = 'Z0CC2Sg1ZL5I9vHbHrdBfg';
-
 export function addBook(book) {
 	return {
 		type: types.ADD_BOOK,
@@ -42,7 +40,7 @@ export function receieveBooks(query, json) {
 export function fetchBooks(query) {
   return (dispatch) => {
     dispatch(requestBooks(query))
-    return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
+    return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query.title}`)
       .then(response => response.json())
       .then((json) => dispatch(receieveBooks(query, json)));
   }

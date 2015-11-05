@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BookInput from '../components/BookInput';
+import BookSearch from '../components/BookSearch';
 import BookList from '../components/BookList';
 import * as BookActions from '../actions/BookActions';
 
@@ -15,6 +16,9 @@ class BookApp extends Component {
       <div>
         <BookInput
           onBookSubmit={actions.fetchBooks}
+        />
+        <BookSearch
+          catalog={books.bookResults}
         />
         <BookList
           onBookEdit={actions.editBook}
