@@ -20,3 +20,28 @@ export function deleteBook(id) {
 		id
 	};
 }
+
+export function requestBooks(query) {
+  return {
+    type: types.REQUEST_BOOKS
+  }
+}
+
+export function receieveBooks(query, json) {
+  console.log(query);
+  console.log(json);
+  return {
+    type: types.RECEIVE_BOOKS,
+    books: json.items,
+    receivedAt: Date.now()
+  }
+}
+
+export function fetchBooks(query) {
+  return (dispatch) => {
+    dispatch(requestBooks(query))
+    return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query.title}`)
+      .then(response => response.json())
+      .then((json) => dispatch(receieveBooks(query, json)));
+  }
+}

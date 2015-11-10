@@ -5,6 +5,7 @@ import { devTools, persistState } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import BookApp from './BookApp';
 import * as reducers from '../reducers';
+import thunk from 'redux-thunk';
 
 // Middlewares
 /**
@@ -41,7 +42,7 @@ const crashReporter = store => next => action => {
 // Use it like you would use createStore()
 const finalCreateStore = compose(
   // Enables your middleware:
-  applyMiddleware(logger, crashReporter),
+  applyMiddleware(logger, crashReporter, thunk),
   // Provides support for DevTools:
   devTools(),
   // Lets you write ?debug_session=<name> in address bar to persist debug sessions

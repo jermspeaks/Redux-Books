@@ -22,10 +22,13 @@
   },
   "homepage": "https://github.com/jermspeaks/Redux-Books#readme",
   "dependencies": {
+    "isomorphic-fetch": "^2.2.0",
+    "jquery": "^2.1.4",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
-    "redux": "^3.0.3"
+    "redux": "^3.0.3",
+    "redux-thunk": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",
