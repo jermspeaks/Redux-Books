@@ -9,9 +9,21 @@ import * as BookActions from '../actions/BookActions';
 // Smart React Component
 class BookApp extends Component {
   // Map Redux actions to component props
+  createNotice(results) {
+    if (results.length === 0) {
+      return (
+        <div>
+          <span>Search for a book</span>
+        </div>
+      );
+    }
+  }
+
   render() {
     // Injected by connect() call:
     const { books, actions } = this.props;
+    let notice = this.createNotice(books.bookResults);
+
     return (
       <div>
         <BookInput
@@ -19,7 +31,9 @@ class BookApp extends Component {
         />
         <BookSearch
           catalog={books.bookResults}
+          onBookAdd={actions.addBook}
         />
+        {notice}
         <BookList
           onBookEdit={actions.editBook}
           onBookDelete={actions.deleteBook}

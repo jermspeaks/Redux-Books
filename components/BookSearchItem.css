@@ -1,0 +1,7 @@
+.book-title,
+.book-description {
+  display: block;
+}
+.book-title {
+  font-size: 1.5em;
+}

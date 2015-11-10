@@ -22,8 +22,8 @@ export default class BookInput extends Component {
     return (
       <div>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input type='text' ref='book' placeholder='enter book' />
-          <button type='submit'>Add Book</button>
+          <input type='text' ref='book' />
+          <button type='submit'>Search</button>
         </form>
       </div>
     );

@@ -1,11 +1,13 @@
 import React, { Component,PropTypes } from 'react';
+import BookSearchItem from './BookSearchItem';
 
 // Dumb React Component
 export default class BookSearch extends Component {
 
   // Expectation to render BookSearch method
   static propTypes = {
-    catalog: PropTypes.array.isRequired
+    catalog: PropTypes.array.isRequired,
+    onBookAdd: PropTypes.func.isRequired,
   };
 
   constructor() {
@@ -13,18 +15,18 @@ export default class BookSearch extends Component {
   }
 
   render() {
-    const {catalog} = this.props;
+    const {catalog, onBookAdd} = this.props;
     return (
-      <ol>
-        {catalog.map((book, index) => <li key={index}>
-          <p>{book.volumeInfo.title}</p>
-          <p>{book.volumeInfo.description}</p>
-          {book.volumeInfo.imageLinks ?
-            <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} /> :
-            null
-          }
+      <ul className='book--list'>
+        {catalog.map((book, index) => <li key={index} className='book--list__list-item'>
+          <BookSearchItem
+            title={book.volumeInfo.title}
+            description={book.volumeInfo.description}
+            imageLinks={book.volumeInfo.imageLinks}
+            addBook={onBookAdd}
+            id={index} />
         </li>)}
-      </ol>
+      </ul>
     );
   }
 }
