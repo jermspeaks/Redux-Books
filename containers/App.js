@@ -7,19 +7,9 @@ import BookApp from './BookApp';
 import * as reducers from '../reducers';
 import thunk from 'redux-thunk';
 import styles from './App.css';
+import createLogger from 'redux-logger';
 
-// Middlewares
-/**
- * Logs all actions and states after they are dispatched.
- */
-const logger = store => next => action => {
-  console.group(action.type);
-  console.info('dispatching', action);
-  let result = next(action);
-  console.log('next state', store.getState());
-  console.groupEnd(action.type);
-  return result;
-};
+const logger = createLogger();
 
 /**
  * Sends crash reports as state is updated and listeners are notified.
@@ -56,14 +46,14 @@ let store = finalCreateStore(reducer);
 
 export default class App extends Component {
   render() {
+    // Development Mode
+    require('../utils/createDevToolsWindow')(store);
+
     return (
       <div>
         <Provider store={store}>
           <BookApp />
         </Provider>
-        <DebugPanel right top bottom >
-          <DevTools store={store} monitor={LogMonitor} />
-        </DebugPanel>
       </div>
     );
   }
