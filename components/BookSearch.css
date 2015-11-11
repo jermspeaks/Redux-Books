@@ -1,0 +1,8 @@
+.book--list {
+  list-style-type: none;
+  margin: 0;
+}
+.book--list__list-item {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}

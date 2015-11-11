@@ -1,5 +1,6 @@
 import React, { Component,PropTypes } from 'react';
 import BookSearchItem from './BookSearchItem';
+import styles from './BookSearch.css';
 
 // Dumb React Component
 export default class BookSearch extends Component {

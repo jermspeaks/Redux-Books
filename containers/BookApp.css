@@ -7,8 +7,11 @@
   font-size: 1.15em;
   font-weight: 600;
 }
+.flex-container {
+  display: flex;
+}
 .search-container {
-  width: 60%;
+  width: 100vw;
   margin-top: 20px;
   margin-left: 20px;
 }
@@ -20,5 +23,7 @@
   color: rgba(0, 0, 0, 0.5);
 }
 .library-container {
-  width: 40%;
+  width: 50vw;
+  margin-right: 20px;
+  margin-top: 50px;
 }

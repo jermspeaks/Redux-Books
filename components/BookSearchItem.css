@@ -1,7 +1,18 @@
-.book-title,
-.book-description {
-  display: block;
-}
-.book-title {
+.book--title {
   font-size: 1.5em;
+}
+.book--details {
+  margin-top: 0.5em;
+}
+.book--description,
+.book--cover {
+  display: inline-block;
+}
+.book--description {
+  margin-left: 10px;
+  width: 60%;
+  vertical-align: top;
+}
+.book--description__button {
+  margin-top: 10px;
 }

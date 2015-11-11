@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import styles from './BookInput.css';
 
 // Dumb React Component
 export default class BookInput extends Component {
@@ -20,10 +21,12 @@ export default class BookInput extends Component {
 
   render() {
     return (
-      <div>
+      <div className='book--search__form'>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input type='text' ref='book' />
-          <button type='submit'>Search</button>
+          <div className='flex-container'>
+            <input className='book--search__input' type='text' ref='book' />
+            <button className='book--search__button' type='submit'>Search</button>
+          </div>
         </form>
       </div>
     );

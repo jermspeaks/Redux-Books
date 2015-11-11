@@ -32,25 +32,27 @@ class BookApp extends Component {
             <span className='header-logo'>Redux Library</span>
           </div>
         </header>
-        <section className='search-container'>
-          <BookInput
-            onBookSubmit={actions.fetchBooks}
-          />
-          <div className='search-notice'>
-            <span className='search-notice__text'>{notice}</span>
-          </div>
-          <BookSearch
-            catalog={books.bookResults}
-            onBookAdd={actions.addBook}
-          />
-        </section>
-        <section className='library-container'>
-          <BookList
-            onBookEdit={actions.editBook}
-            onBookDelete={actions.deleteBook}
-            library={books.library}
-          />
-        </section>
+        <div className='flex-container'>
+          <section className='search-container'>
+            <BookInput
+              onBookSubmit={actions.fetchBooks}
+            />
+            <div className='search-notice'>
+              <span className='search-notice__text'>{notice}</span>
+            </div>
+            <BookSearch
+              catalog={books.bookResults}
+              onBookAdd={actions.addBook}
+            />
+          </section>
+          <section className='library-container'>
+            <BookList
+              onBookEdit={actions.editBook}
+              onBookDelete={actions.deleteBook}
+              library={books.library}
+            />
+          </section>
+        </div>
       </div>
     );
   }

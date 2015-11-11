@@ -1,0 +1,14 @@
+.book--search__form {
+  margin-left: 40px;
+}
+.flex-container {
+  display: flex;
+}
+.book--search__input {
+  width: 30vw;
+  height: 1.5em;
+  margin-right: 1em;
+}
+.book--search__button {
+  width: 10vw;
+}
