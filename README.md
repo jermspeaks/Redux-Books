@@ -1,5 +1,5 @@
 # Redux-Books
-A Quick Bootstrap of Redux using for a Books List CRUD app
+An application utilizing React with Redux that allows you to search books as well as add them to your library.
 
 ## Getting Started
 
@@ -10,6 +10,10 @@ npm install
 npm start
 open http://localhost:3000
 ```
+
+## Tests
+
+To run tests, simply run `npm test`. You can watch tests with `npm run test:watch`. Tests are in the test folder.
 
 ## Resources
 
