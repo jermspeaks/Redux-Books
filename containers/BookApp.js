@@ -5,6 +5,7 @@ import BookInput from '../components/BookInput';
 import BookSearch from '../components/BookSearch';
 import BookList from '../components/BookList';
 import * as BookActions from '../actions/BookActions';
+import style from './BookApp.css';
 
 // Smart React Component
 class BookApp extends Component {
@@ -26,19 +27,30 @@ class BookApp extends Component {
 
     return (
       <div>
-        <BookInput
-          onBookSubmit={actions.fetchBooks}
-        />
-        <BookSearch
-          catalog={books.bookResults}
-          onBookAdd={actions.addBook}
-        />
-        {notice}
-        <BookList
-          onBookEdit={actions.editBook}
-          onBookDelete={actions.deleteBook}
-          library={books.library}
-        />
+        <header>
+          <div className='header-container'>
+            <span className='header-logo'>Redux Library</span>
+          </div>
+        </header>
+        <section className='search-container'>
+          <BookInput
+            onBookSubmit={actions.fetchBooks}
+          />
+          <div className='search-notice'>
+            <span className='search-notice__text'>{notice}</span>
+          </div>
+          <BookSearch
+            catalog={books.bookResults}
+            onBookAdd={actions.addBook}
+          />
+        </section>
+        <section className='library-container'>
+          <BookList
+            onBookEdit={actions.editBook}
+            onBookDelete={actions.deleteBook}
+            library={books.library}
+          />
+        </section>
       </div>
     );
   }

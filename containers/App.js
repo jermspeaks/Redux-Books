@@ -6,6 +6,7 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import BookApp from './BookApp';
 import * as reducers from '../reducers';
 import thunk from 'redux-thunk';
+import styles from './App.css';
 
 // Middlewares
 /**

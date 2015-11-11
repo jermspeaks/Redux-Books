@@ -1,0 +1,24 @@
+.header-container {
+  background-color: #ccc;
+  padding: 1em;
+  border-bottom: 1px solid #222;
+}
+.header-logo {
+  font-size: 1.15em;
+  font-weight: 600;
+}
+.search-container {
+  width: 60%;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.search-notice {
+  margin-top: 20px;
+}
+.search-notice__text {
+  font-size: 3em;
+  color: rgba(0, 0, 0, 0.5);
+}
+.library-container {
+  width: 40%;
+}
