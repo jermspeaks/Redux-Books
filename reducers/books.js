@@ -10,10 +10,11 @@ export default function books(state = initialState, action) {
   const oldLibrary = state.library;
   switch(action.type) {
     case types.ADD_BOOK:
+      const idArray = state.library.map((book) => book.id);
       return Object.assign({}, state, {
         library: [{
           title: action.book.title,
-          id: action.book.id
+          id: Math.max(-1, ...idArray) + 1,
         }, ...oldLibrary]
       });
     case types.REQUEST_BOOKS:
